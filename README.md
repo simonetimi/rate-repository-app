@@ -1,3 +1,3 @@
-# Full Stack Open part 10 esercises solutions
+# Full Stack Open part 10 exercises solutions
 
 Student: Simone Timi
