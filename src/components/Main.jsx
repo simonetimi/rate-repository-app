@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
-    padding: 12,
+    backgroundColor: '#CCCCCC', // * light grey
   },
 });
 
