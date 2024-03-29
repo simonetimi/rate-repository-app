@@ -2,6 +2,7 @@ import Text from './Text';
 import { TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
 import theme from '../theme';
 import { Formik } from 'formik';
+import * as yup from 'yup';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +28,11 @@ const styles = StyleSheet.create({
   },
 });
 
+const validationSchema = yup.object().shape({
+  username: yup.string().min(3).required('Username is required'),
+  password: yup.string().min(8).required('Password is required'),
+});
+
 const SignIn = () => {
   const onSubmit = (values) => {
     console.log(values);
@@ -35,9 +41,10 @@ const SignIn = () => {
     <View style={styles.container}>
       <Formik
         initialValues={{ username: '', password: '' }}
+        validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <>
             <TextInput
               style={styles.input}
@@ -45,6 +52,7 @@ const SignIn = () => {
               onChangeText={handleChange('username')}
               onBlur={handleBlur('username')}
             ></TextInput>
+            <Text color={'error'}>{errors.username}</Text>
             <TextInput
               style={styles.input}
               placeholder={'Password'}
@@ -53,6 +61,7 @@ const SignIn = () => {
               onBlur={handleBlur('password')}
               value={values.password}
             ></TextInput>
+            <Text color={'error'}>{errors.password}</Text>
             <TouchableHighlight style={styles.button} onPress={handleSubmit}>
               <Text fontWeight={'bold'} fontSize={'subheading'} color={'white'}>
                 Sign in
