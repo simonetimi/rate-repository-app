@@ -35,14 +35,24 @@ const AppBar = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <Link to="/" activeOpacity={0} underlayColor={'transparent'} style={styles.link}>
+        <Link
+          to="/"
+          activeOpacity={0}
+          underlayColor={'transparent'}
+          style={styles.link}
+        >
           <Text fontWeight={'bold'} style={styles.title}>
             Repositories
           </Text>
         </Link>
-        <Link to="/signin" activeOpacity={0} underlayColor={'transparent'} style={styles.link}>
+        <Link
+          to="/signin"
+          activeOpacity={0}
+          underlayColor={'transparent'}
+          style={styles.link}
+        >
           <Text fontWeight={'bold'} style={styles.title}>
-            Login
+            Sign in
           </Text>
         </Link>
       </ScrollView>
