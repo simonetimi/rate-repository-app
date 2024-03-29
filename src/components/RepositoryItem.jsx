@@ -64,33 +64,33 @@ const RepositoryItem = ({ item }) => {
         <Image
           style={styles.profileImage}
           source={{
-            uri: item.ownerAvatarUrl,
+            uri: item.node.ownerAvatarUrl,
           }}
         />
         <View style={{ flex: 1 }}>
-          <Text>{item.fullName}</Text>
-          <Text style={styles.description}>{item.description}</Text>
+          <Text>{item.node.fullName}</Text>
+          <Text style={styles.description}>{item.node.description}</Text>
           <View style={styles.languageChip}>
-            <Text style={styles.languageChipText}>{item.language}</Text>
+            <Text style={styles.languageChipText}>{item.node.language}</Text>
           </View>
         </View>
       </View>
       <View style={styles.itemFooter}>
         <View style={styles.itemFooterBlock}>
           <Text style={styles.itemFooterBlockTitle}>Forks</Text>
-          <Text>{formatNumberCompact(item.forksCount)}</Text>
+          <Text>{formatNumberCompact(item.node.forksCount)}</Text>
         </View>
         <View style={styles.itemFooterBlock}>
           <Text style={styles.itemFooterBlockTitle}>Stargazers</Text>
-          <Text>{formatNumberCompact(item.stargazersCount)}</Text>
+          <Text>{formatNumberCompact(item.node.stargazersCount)}</Text>
         </View>
         <View style={styles.itemFooterBlock}>
           <Text style={styles.itemFooterBlockTitle}>Rating</Text>
-          <Text>{formatNumberCompact(item.ratingAverage)}</Text>
+          <Text>{formatNumberCompact(item.node.ratingAverage)}</Text>
         </View>
         <View style={styles.itemFooterBlock}>
           <Text style={styles.itemFooterBlockTitle}>Reviews</Text>
-          <Text>{formatNumberCompact(item.reviewCount)}</Text>
+          <Text>{formatNumberCompact(item.node.reviewCount)}</Text>
         </View>
       </View>
     </View>
