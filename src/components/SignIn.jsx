@@ -3,6 +3,7 @@ import { TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
 import theme from '../theme';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useSignIn } from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,8 +35,10 @@ const validationSchema = yup.object().shape({
 });
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log(values);
+  const [signIn, result] = useSignIn();
+  const onSubmit = async (values) => {
+    await signIn(values);
+    console.log(result.data.authenticate.accessToken);
   };
   return (
     <View style={styles.container}>
