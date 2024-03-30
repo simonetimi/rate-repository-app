@@ -38,7 +38,6 @@ const SignIn = () => {
   const [signIn, result] = useSignIn();
   const onSubmit = async (values) => {
     await signIn(values);
-    console.log(result.data.authenticate.accessToken);
   };
   return (
     <View style={styles.container}>
