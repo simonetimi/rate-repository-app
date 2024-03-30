@@ -1,9 +1,10 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
+const APOLLO_URI = process.env.EXPO_PUBLIC_APOLLO_URI;
+
 const createApolloClient = () => {
-  const BASE_URL = 'http://192.168.1.53';
   return new ApolloClient({
-    uri: `${BASE_URL}:4000/`,
+    uri: APOLLO_URI,
     cache: new InMemoryCache(),
   });
 };
