@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const { data, loading, error, refetch } = useRepositories();
+  const { data, loading } = useRepositories();
 
   if (loading) {
     return <Text>Loading...</Text>;
