@@ -20,3 +20,12 @@ export const getRepositories = gql`
     }
   }
 `;
+
+export const getUser = gql`
+  query {
+    me {
+      id
+      username
+    }
+  }
+`;

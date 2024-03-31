@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Link } from 'react-router-native';
 import Text from './Text';
 import Constants from 'expo-constants';
+import { getUser } from '../graphql/queries';
+import { useQuery } from '@apollo/client';
+import useLogout from '../hooks/useLogout';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,6 +31,9 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const { loading, data } = useQuery(getUser);
+  const logout = useLogout();
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -45,16 +51,24 @@ const AppBar = () => {
             Repositories
           </Text>
         </Link>
-        <Link
-          to="/signin"
-          activeOpacity={0}
-          underlayColor={'transparent'}
-          style={styles.link}
-        >
-          <Text fontWeight={'bold'} style={styles.title}>
-            Sign in
-          </Text>
-        </Link>
+        {loading ? null : data.me ? (
+          <Pressable onPress={logout}>
+            <Text fontWeight={'bold'} style={styles.title}>
+              Log out
+            </Text>
+          </Pressable>
+        ) : (
+          <Link
+            to="/signin"
+            activeOpacity={0}
+            underlayColor={'transparent'}
+            style={styles.link}
+          >
+            <Text fontWeight={'bold'} style={styles.title}>
+              Sign in
+            </Text>
+          </Link>
+        )}
       </ScrollView>
     </View>
   );

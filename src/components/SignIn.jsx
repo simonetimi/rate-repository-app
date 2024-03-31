@@ -4,6 +4,9 @@ import theme from '../theme';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useSignIn } from '../hooks/useSignIn';
+import { useNavigate } from 'react-router-native';
+
+// TODO implement redirect to repositories when user logs in. i actually did with Reidrect but it's not redirecting
 
 const styles = StyleSheet.create({
   container: {
@@ -35,10 +38,14 @@ const validationSchema = yup.object().shape({
 });
 
 const SignIn = () => {
-  const [signIn, result] = useSignIn();
+  const [signIn] = useSignIn();
+  const navigate = useNavigate();
+
   const onSubmit = async (values) => {
     await signIn(values);
+    navigate('/');
   };
+
   return (
     <View style={styles.container}>
       <Formik
