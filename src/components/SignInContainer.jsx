@@ -1,51 +1,16 @@
 import Text from './Text';
-import { TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
-import theme from '../theme';
+import { TextInput, View, TouchableHighlight } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useSignIn } from '../hooks/useSignIn';
-import { useNavigate } from 'react-router-native';
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 50,
-    display: 'flex',
-    gap: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    padding: 10,
-    width: 300,
-    height: 60,
-    backgroundColor: 'white',
-    borderRadius: 12,
-  },
-  button: {
-    backgroundColor: theme.colors.secondary,
-    padding: 14,
-    borderRadius: 12,
-    width: 300,
-    alignItems: 'center',
-  },
-});
 
 const validationSchema = yup.object().shape({
   username: yup.string().min(3).required('Username is required'),
   password: yup.string().min(8).required('Password is required'),
 });
 
-const SignIn = () => {
-  const [signIn] = useSignIn();
-  const navigate = useNavigate();
-
-  const onSubmit = async (values) => {
-    await signIn(values);
-    navigate('/');
-  };
-
+const SignInContainer = ({ onSubmit }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={validationSchema}
@@ -54,14 +19,12 @@ const SignIn = () => {
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <>
             <TextInput
-              style={styles.input}
               placeholder={'Username'}
               onChangeText={handleChange('username')}
               onBlur={handleBlur('username')}
             ></TextInput>
             <Text color={'error'}>{errors.username}</Text>
             <TextInput
-              style={styles.input}
               placeholder={'Password'}
               secureTextEntry={true}
               onChangeText={handleChange('password')}
@@ -69,7 +32,7 @@ const SignIn = () => {
               value={values.password}
             ></TextInput>
             <Text color={'error'}>{errors.password}</Text>
-            <TouchableHighlight style={styles.button} onPress={handleSubmit}>
+            <TouchableHighlight onPress={handleSubmit} testID="submit_button">
               <Text fontWeight={'bold'} fontSize={'subheading'} color={'white'}>
                 Sign in
               </Text>
@@ -81,4 +44,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInContainer;
