@@ -15,8 +15,25 @@ export const getRepositories = gql`
           ratingAverage
           reviewCount
           stargazersCount
+          url
         }
       }
+    }
+  }
+`;
+
+export const getRepository = gql`
+  query Query($id: ID!) {
+    repository(id: $id) {
+      fullName
+      description
+      language
+      forksCount
+      stargazersCount
+      ratingAverage
+      reviewCount
+      ownerAvatarUrl
+      url
     }
   }
 `;
