@@ -1,11 +1,18 @@
+// noinspection GraphQLUnresolvedReference
+
 import { gql } from '@apollo/client';
 
 export const getRepositories = gql`
-  query Query(
+  query (
     $orderDirection: OrderDirection
     $orderBy: AllRepositoriesOrderBy
+    $searchKeyword: String
   ) {
-    repositories(orderDirection: $orderDirection, orderBy: $orderBy) {
+    repositories(
+      orderDirection: $orderDirection
+      orderBy: $orderBy
+      searchKeyword: $searchKeyword
+    ) {
       edges {
         node {
           fullName
@@ -26,7 +33,7 @@ export const getRepositories = gql`
 `;
 
 export const getRepository = gql`
-  query Query($id: ID!) {
+  query ($id: ID!) {
     repository(id: $id) {
       fullName
       id
