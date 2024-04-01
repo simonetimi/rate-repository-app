@@ -29,7 +29,7 @@ export const useNewReview = () => {
       await client.resetStore();
       return data;
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error(error);
     }
   };
 

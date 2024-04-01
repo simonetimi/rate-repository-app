@@ -70,16 +70,28 @@ const AppBar = () => {
             </Pressable>
           </>
         ) : (
-          <Link
-            to="/signin"
-            activeOpacity={0}
-            underlayColor={'transparent'}
-            style={styles.link}
-          >
-            <Text fontWeight={'bold'} style={styles.title}>
-              Sign in
-            </Text>
-          </Link>
+          <>
+            <Link
+              to="/signin"
+              activeOpacity={0}
+              underlayColor={'transparent'}
+              style={styles.link}
+            >
+              <Text fontWeight={'bold'} style={styles.title}>
+                Sign in
+              </Text>
+            </Link>
+            <Link
+              to="/signup"
+              activeOpacity={0}
+              underlayColor={'transparent'}
+              style={styles.link}
+            >
+              <Text fontWeight={'bold'} style={styles.title}>
+                Sign up
+              </Text>
+            </Link>
+          </>
         )}
       </ScrollView>
     </View>
