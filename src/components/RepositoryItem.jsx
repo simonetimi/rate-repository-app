@@ -98,8 +98,16 @@ const RepositoryItem = ({ item, displaySingle }) => {
           <Text style={styles.itemFooterBlockTitle}>Reviews</Text>
           <Text>{formatNumberCompact(parsedItem.reviewCount)}</Text>
         </View>
-        {displaySingle ? <A href={parsedItem.url}>Open on GitHub</A> : null}
       </View>
+      {displaySingle ? (
+        <View
+          style={[styles.languageChip, { marginLeft: 20, alignSelf: 'center' }]}
+        >
+          <A href={parsedItem.url} style={styles.languageChipText}>
+            Open on GitHub
+          </A>
+        </View>
+      ) : null}
     </View>
   );
 };

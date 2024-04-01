@@ -52,11 +52,23 @@ const AppBar = () => {
           </Text>
         </Link>
         {loading ? null : data.me ? (
-          <Pressable onPress={logout}>
-            <Text fontWeight={'bold'} style={styles.title}>
-              Log out
-            </Text>
-          </Pressable>
+          <>
+            <Link
+              to="/newReview"
+              activeOpacity={0}
+              underlayColor={'transparent'}
+              style={styles.link}
+            >
+              <Text fontWeight={'bold'} style={styles.title}>
+                Create review
+              </Text>
+            </Link>
+            <Pressable onPress={logout}>
+              <Text fontWeight={'bold'} style={styles.title}>
+                Log out
+              </Text>
+            </Pressable>
+          </>
         ) : (
           <Link
             to="/signin"
