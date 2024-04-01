@@ -7,7 +7,7 @@ export const useSignUp = () => {
 
   const signUp = async ({ username, password }) => {
     try {
-      const data = await mutate({
+      await mutate({
         variables: { user: { username, password } },
       });
       await client.resetStore();
