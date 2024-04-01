@@ -1,7 +1,6 @@
 import { useMutation, useApolloClient } from '@apollo/client';
 import { NEW_REVIEW } from '../graphql/mutations';
 import useAuthStorage from './useAuthStorage';
-import { useState } from 'react';
 
 export const useNewReview = () => {
   const [mutate] = useMutation(NEW_REVIEW);

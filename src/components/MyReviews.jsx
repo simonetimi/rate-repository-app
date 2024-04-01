@@ -1,6 +1,16 @@
-import { Text, StyleSheet, View, FlatList } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Alert,
+  Pressable,
+} from 'react-native';
+import { Link } from 'react-router-native';
 import { format } from 'date-fns';
 import useRetrieveReviews from '../hooks/useRetrieveReviews';
+import { useDeleteReview } from '../hooks/useDeleteRepo';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   separator: {
@@ -31,9 +41,37 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'blue',
   },
+  button: {
+    backgroundColor: theme.colors.secondary,
+    padding: 4,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 8,
+    marginTop: 4,
+    alignSelf: 'flex-start',
+  },
+  buttonText: {
+    color: 'white',
+  },
 });
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review, repoId }) => {
+  const [deleteReview] = useDeleteReview();
+  const alertOnDelete = () =>
+    Alert.alert('Delete review', 'Are you sure you wanna delete this review?', [
+      {
+        text: 'Cancel',
+        onPress: () => {
+          return;
+        },
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => deleteReview(review.id),
+      },
+    ]);
+
   return (
     <View style={styles.item}>
       <View style={styles.rating}>
@@ -43,6 +81,17 @@ const ReviewItem = ({ review }) => {
         <Text>{review.text}</Text>
         <Text style={{ fontWeight: 'bold' }}>{review.user.username}</Text>
         <Text>{format(new Date(review.createdAt), 'dd MMMM yyyy')}</Text>
+        <View style={{ flexDirection: 'row', gap: 10 }}>
+          <Link to={`/repository/${repoId}`} style={styles.button}>
+            <Text style={styles.buttonText}>View repo</Text>
+          </Link>
+          <Pressable
+            onPress={alertOnDelete}
+            style={[styles.button, { backgroundColor: 'red' }]}
+          >
+            <Text style={styles.buttonText}>Delete review</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -61,7 +110,9 @@ const MyReviews = () => {
     <FlatList
       contentContainerStyle={{ paddingRight: 60, backgroundColor: 'white' }}
       data={data.me.reviews.edges}
-      renderItem={({ item }) => <ReviewItem review={item.node} />}
+      renderItem={({ item }) => (
+        <ReviewItem review={item.node} repoId={item.node.repositoryId} />
+      )}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.node.id}
     />

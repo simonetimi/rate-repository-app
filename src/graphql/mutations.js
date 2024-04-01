@@ -30,3 +30,9 @@ export const NEW_REVIEW = gql`
     }
   }
 `;
+
+export const DELETE_REVIEW = gql`
+  mutation ($id: ID!) {
+    deleteReview(id: $id)
+  }
+`;
