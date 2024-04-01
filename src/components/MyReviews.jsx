@@ -1,8 +1,6 @@
-import { FlatList, View, StyleSheet, Text } from 'react-native';
-import { useParams } from 'react-router-native';
-import useRepository from '../hooks/useRepository';
-import RepositoryItem from './RepositoryItem';
+import { Text, StyleSheet, View, FlatList } from 'react-native';
 import { format } from 'date-fns';
+import useRetrieveReviews from '../hooks/useRetrieveReviews';
 
 const styles = StyleSheet.create({
   separator: {
@@ -35,12 +33,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const ItemSeparator = () => <View style={styles.separator} />;
-
-const RepositoryInfo = ({ repository }) => {
-  return <RepositoryItem item={repository} displaySingle={true} />;
-};
-
 const ReviewItem = ({ review }) => {
   return (
     <View style={styles.item}>
@@ -56,9 +48,10 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-const Repository = () => {
-  const { id } = useParams();
-  const { repository, loading } = useRepository(id);
+const ItemSeparator = () => <View style={styles.separator} />;
+
+const MyReviews = () => {
+  const { data, loading } = useRetrieveReviews();
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -67,13 +60,12 @@ const Repository = () => {
   return (
     <FlatList
       contentContainerStyle={{ paddingRight: 60, backgroundColor: 'white' }}
-      data={repository.reviews.edges}
+      data={data.me.reviews.edges}
       renderItem={({ item }) => <ReviewItem review={item.node} />}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.node.id}
-      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
     />
   );
 };
 
-export default Repository;
+export default MyReviews;

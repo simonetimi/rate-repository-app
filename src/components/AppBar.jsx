@@ -63,6 +63,16 @@ const AppBar = () => {
                 Create review
               </Text>
             </Link>
+            <Link
+              to="/myReviews"
+              activeOpacity={0}
+              underlayColor={'transparent'}
+              style={styles.link}
+            >
+              <Text fontWeight={'bold'} style={styles.title}>
+                My reviews
+              </Text>
+            </Link>
             <Pressable onPress={logout}>
               <Text fontWeight={'bold'} style={styles.title}>
                 Log out
