@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
   radioButtonGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: -20,
+    marginBottom: 5,
   },
   radioButtonContainer: {
     flexDirection: 'row',
@@ -27,7 +30,10 @@ const RepositoryList = () => {
   const [checked, setChecked] = useState('latest');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
-  const { data, loading } = useRepositories(checked, debouncedSearchQuery);
+  const { data, loading, fetchMore } = useRepositories(
+    checked,
+    debouncedSearchQuery,
+  );
 
   const debounced = useDebouncedCallback((value) => {
     setDebouncedSearchQuery(value);
@@ -36,6 +42,10 @@ const RepositoryList = () => {
   useEffect(() => {
     debounced(searchQuery);
   }, [searchQuery]);
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -71,6 +81,8 @@ const RepositoryList = () => {
         ItemSeparatorComponent={ItemSeparator}
         renderItem={RepositoryItem}
         keyExtractor={(item) => item.node.id}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     </>
   );

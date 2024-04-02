@@ -58,7 +58,11 @@ const ReviewItem = ({ review }) => {
 
 const Repository = () => {
   const { id } = useParams();
-  const { repository, loading } = useRepository(id);
+  const { repository, loading, fetchMore } = useRepository(id);
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -71,6 +75,8 @@ const Repository = () => {
       renderItem={({ item }) => <ReviewItem review={item.node} />}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.node.id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
     />
   );
